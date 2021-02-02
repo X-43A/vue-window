@@ -27,6 +27,9 @@ export class DraggableHelper {
   private offsetY!: number
 
   private mousedown = (e: SinglePointerEvent) => {
+    if ( e.button != 0 ) {
+      return;
+    }
     e.preventDefault()
     const { left, top } = this.handle.getBoundingClientRect()
     this.offsetX = e.clientX - left
@@ -37,12 +40,18 @@ export class DraggableHelper {
   }
 
   private mousemove = (e: SinglePointerEvent) => {
+    if ( e.button != 0 ) {
+      return;
+    }
     this.container.style.left = `${e.clientX - this.offsetX}px`
     this.container.style.top = `${e.clientY - this.offsetY}px`
     this.options.onMove && this.options.onMove()
   }
 
   private mouseup = (e: SinglePointerEvent) => {
+    if ( e.button != 0 ) {
+      return;
+    }
     this.options.onMoveEnd && this.options.onMoveEnd()
     this.unbindUp!()
     this.unbindMove!()
